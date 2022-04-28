@@ -36,6 +36,7 @@ struct SetGame {
         for _ in 0..<12 {
             let randIndex = ChooseRand.rand(upperBound: deck.count)
             screenCards.append(deck[randIndex])
+            deck[randIndex].isOn = true
             deck.remove(at: randIndex)
         }
     }
@@ -71,6 +72,7 @@ struct SetGame {
         for _ in 1...3 {
             let randIndex = ChooseRand.rand(upperBound: deck.count)
             screenCards.append(deck[randIndex])
+            deck[randIndex].isOn = true
             deck.remove(at: randIndex)
         }
     }
@@ -117,19 +119,6 @@ struct SetGame {
                 }
                        if cardSelected.count == 3 {
                            checkIfSet()
-//                           if cardsMakeASet(chosen: self.cardSelected) {
-//                               for card in cardSelected {
-//                                   if let index = deck.firstIndex(of: card) {
-//                                       deck[index].isMatch = true
-//                                   }
-//                                }
-//                           } else {
-//                               for card in cardSelected {
-//                                   if let index = deck.firstIndex(of: card) {
-//                                       deck[index].isMismatched = true
-//                                   }
-//                               }
-//                           }
                        }
                    }
                } else {
@@ -175,7 +164,6 @@ struct SetGame {
 enum ChooseRand {
     static func rand(upperBound max: Int) -> Int {
         Int.random(in: 0..<max)
-//        Int(arc4random_uniform(UInt32(max)))
     }
 }
     

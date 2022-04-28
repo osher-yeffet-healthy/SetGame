@@ -18,6 +18,7 @@ struct Card: Equatable {
     var isDiscard = false
     var isMismatched = false
     var wasDealt = false
+    var isOn = false
     
     static func == (card1: Card, card2: Card) -> Bool {
             card1.cardNum == card2.cardNum
@@ -26,7 +27,7 @@ struct Card: Equatable {
                && card1.cardShading == card2.cardShading
     }
     
-    enum Color: CaseIterable {
+    enum Color: Int, CaseIterable {
         case red
         case green
         case blue
@@ -38,7 +39,7 @@ struct Card: Equatable {
         case square
     }
     
-    enum Shading: CaseIterable {
+    enum Shading: Int, CaseIterable {
         case solid
         case striped
         case open

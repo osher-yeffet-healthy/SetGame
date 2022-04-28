@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -24,7 +25,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdO-wD-pDy">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="90" id="Qbj-qh-3l8"/>
                                                 </constraints>
@@ -36,7 +37,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Elx-DZ-FCM">
                                                 <rect key="frame" x="98" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -45,7 +46,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZa-Yn-4MW">
                                                 <rect key="frame" x="196" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -54,7 +55,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLV-0p-z9Z">
                                                 <rect key="frame" x="294" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -68,7 +69,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jq-wg-ILj">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -77,7 +78,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCL-2q-OIi">
                                                 <rect key="frame" x="98" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -86,7 +87,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRk-nG-iCs">
                                                 <rect key="frame" x="196" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -95,7 +96,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vzx-HT-miQ">
                                                 <rect key="frame" x="294" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -109,7 +110,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPh-Dc-Op6">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.9760967954405374" green="0.87598911136594582" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -118,7 +119,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ivk-bd-qLS">
                                                 <rect key="frame" x="98" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -127,7 +128,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huw-az-UUD">
                                                 <rect key="frame" x="196" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -136,7 +137,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyf-nu-3sL">
                                                 <rect key="frame" x="294" y="0.0" width="90" height="90"/>
-                                                <color key="backgroundColor" red="0.95622652769088745" green="0.82699143886566162" blue="0.95616060495376587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.97609679540000005" green="0.87598911140000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                 <connections>
@@ -284,16 +285,29 @@
                                     <action selector="deal3MoreCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="80U-GJ-bTj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8IL-6g-LBm">
+                                <rect key="frame" x="160" y="719" width="94" height="48"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                <color key="tintColor" systemColor="systemPurpleColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="New Game"/>
+                                <connections>
+                                    <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qbc-62-uSz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.75294119120000003" green="0.75294119120000003" blue="0.75294119120000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="m5r-aD-LvO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="126" id="0c9-DT-0ig"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U8j-9Y-4hO" secondAttribute="trailing" constant="15" id="4Do-rL-9p6"/>
                             <constraint firstItem="U8j-9Y-4hO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="Heg-XD-1cx"/>
+                            <constraint firstItem="8IL-6g-LBm" firstAttribute="centerX" secondItem="U8j-9Y-4hO" secondAttribute="centerX" id="KE0-ca-oq3"/>
                             <constraint firstItem="U8j-9Y-4hO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LnY-3J-wMS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m5r-aD-LvO" secondAttribute="trailing" constant="110" id="W6d-wS-abu"/>
+                            <constraint firstItem="m5r-aD-LvO" firstAttribute="top" secondItem="8IL-6g-LBm" secondAttribute="bottom" constant="20" id="ZNv-I8-V40"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m5r-aD-LvO" secondAttribute="bottom" constant="15" id="shL-6A-iZa"/>
+                            <constraint firstItem="8IL-6g-LBm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="160" id="swO-kh-14b"/>
                         </constraints>
                     </view>
                     <connections>
@@ -327,4 +341,12 @@
             <point key="canvasLocation" x="-26.086956521739133" y="92.410714285714278"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
