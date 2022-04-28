@@ -16,6 +16,10 @@
 		674813A928168F8B003B515A /* SetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813A828168F8B003B515A /* SetTests.swift */; };
 		674813B328168F8B003B515A /* SetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813B228168F8B003B515A /* SetUITests.swift */; };
 		674813B528168F8B003B515A /* SetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813B428168F8B003B515A /* SetUITestsLaunchTests.swift */; };
+		674813C328169E2B003B515A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813C228169E2B003B515A /* Card.swift */; };
+		674813C52816D66F003B515A /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813C42816D66F003B515A /* SetGame.swift */; };
+		674813C82816F261003B515A /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 674813C72816F261003B515A /* swiftlint.yml */; };
+		67FF097F281A7D0C005AEC06 /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF097E281A7D0C005AEC06 /* Shapes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		674813AE28168F8B003B515A /* SetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		674813B228168F8B003B515A /* SetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUITests.swift; sourceTree = "<group>"; };
 		674813B428168F8B003B515A /* SetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		674813C228169E2B003B515A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		674813C42816D66F003B515A /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		674813C72816F261003B515A /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
+		67FF097E281A7D0C005AEC06 /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +107,15 @@
 		6748139028168F74003B515A /* Set */ = {
 			isa = PBXGroup;
 			children = (
-				6748139128168F74003B515A /* AppDelegate.swift */,
+				674813C72816F261003B515A /* swiftlint.yml */,
+				674813C128169135003B515A /* New Group */,
 				6748139328168F74003B515A /* SceneDelegate.swift */,
 				6748139528168F74003B515A /* ViewController.swift */,
 				6748139728168F74003B515A /* Main.storyboard */,
-				6748139A28168F8A003B515A /* Assets.xcassets */,
-				6748139C28168F8B003B515A /* LaunchScreen.storyboard */,
 				6748139F28168F8B003B515A /* Info.plist */,
+				674813C228169E2B003B515A /* Card.swift */,
+				674813C42816D66F003B515A /* SetGame.swift */,
+				67FF097E281A7D0C005AEC06 /* Shapes.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -127,6 +137,16 @@
 			path = SetUITests;
 			sourceTree = "<group>";
 		};
+		674813C128169135003B515A /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				6748139128168F74003B515A /* AppDelegate.swift */,
+				6748139A28168F8A003B515A /* Assets.xcassets */,
+				6748139C28168F8B003B515A /* LaunchScreen.storyboard */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,6 +157,7 @@
 				6748138A28168F74003B515A /* Sources */,
 				6748138B28168F74003B515A /* Frameworks */,
 				6748138C28168F74003B515A /* Resources */,
+				674813C62816E94E003B515A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -232,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6748139E28168F8B003B515A /* LaunchScreen.storyboard in Resources */,
+				674813C82816F261003B515A /* swiftlint.yml in Resources */,
 				6748139B28168F8A003B515A /* Assets.xcassets in Resources */,
 				6748139928168F74003B515A /* Main.storyboard in Resources */,
 			);
@@ -253,6 +275,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		674813C62816E94E003B515A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint lint --strict\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6748138A28168F74003B515A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -260,7 +303,10 @@
 			files = (
 				6748139628168F74003B515A /* ViewController.swift in Sources */,
 				6748139228168F74003B515A /* AppDelegate.swift in Sources */,
+				674813C52816D66F003B515A /* SetGame.swift in Sources */,
 				6748139428168F74003B515A /* SceneDelegate.swift in Sources */,
+				674813C328169E2B003B515A /* Card.swift in Sources */,
+				67FF097F281A7D0C005AEC06 /* Shapes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
