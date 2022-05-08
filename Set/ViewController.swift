@@ -10,7 +10,7 @@ import UIKit
 final class ViewController: UIViewController {
     private lazy var game = SetGame()
     
-    @IBOutlet private weak var playingView: UIView!
+    @IBOutlet private weak var boardView: UIView!
     
     @IBAction private func deal3MoreCards(_ sender: UIButton) {
         game.deal3MoreCards()
@@ -19,7 +19,10 @@ final class ViewController: UIViewController {
     
     func startNewGame() {
         game = SetGame()
+        removeExistingSubviews()
+//        removeAllCardViews()
         updateViewFromModel()
+        boardView.setNeedsDisplay()
     }
     
     @IBAction private func newGame(_ sender: UIButton) {
@@ -29,7 +32,18 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewGame()
-        updateViewFromModel()
+//        updateViewFromModel()
+    }
+    
+    private func removeExistingSubviews() {
+      for view in boardView.subviews {
+        view.removeFromSuperview()
+      }
+    }
+    func removeAllCardViews() {
+        for index in boardView.subviews.indices {
+            boardView.subviews[index].removeFromSuperview()
+        }
     }
     
 //    @IBAction private func touchCard(_ sender: UIButton) {
@@ -45,21 +59,19 @@ final class ViewController: UIViewController {
 //    }
     
     func updateViewFromModel() {
-        for view in playingView.subviews {
-            view.removeFromSuperview()
-        }
-        var grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: playingView.bounds)
-
+        var grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: boardView.bounds)
+        removeExistingSubviews()
+//        removeAllCardViews()
         grid.cellCount = game.screenCards.count
         for index in game.screenCards.indices {
             if let cardViewFrame = grid[index] {
                 let card = game.screenCards[index]
-                let cardView = SetCardView(frame: cardViewFrame, with: card)
+                let cardView = SetCardView(frame: cardViewFrame.insetBy(dx: CGFloat(0.2), dy: CGFloat(0.2)), with: card)
                 cardView.color = card.cardColor
                 cardView.number = card.cardNum
                 cardView.shading = card.cardShading
                 cardView.shape = card.cardShape
-                view.addSubview(cardView)
+                boardView.addSubview(cardView)
             }
         }
     }

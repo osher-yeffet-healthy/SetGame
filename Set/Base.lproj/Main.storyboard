@@ -40,7 +40,7 @@
                                     <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qbc-62-uSz"/>
                                 </connections>
                             </button>
-                            <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="9Mc-Y6-Udn" customClass="SetCardView" customModule="Set" customModuleProvider="target">
+                            <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="9Mc-Y6-Udn">
                                 <rect key="frame" x="30" y="74" width="354" height="663"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="tintColor"/>
@@ -49,20 +49,20 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.75294119120000003" green="0.75294119120000003" blue="0.75294119120000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9Mc-Y6-Udn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2uu-Y8-maK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Mc-Y6-Udn" secondAttribute="trailing" constant="30" id="66j-8n-EY6"/>
                             <constraint firstItem="m5r-aD-LvO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8IL-6g-LBm" secondAttribute="trailing" constant="8" symbolic="YES" id="6Rr-66-dD6"/>
-                            <constraint firstItem="m5r-aD-LvO" firstAttribute="top" secondItem="9Mc-Y6-Udn" secondAttribute="bottom" priority="750" constant="50" id="9JF-Iw-ECC"/>
                             <constraint firstItem="m5r-aD-LvO" firstAttribute="bottom" secondItem="8IL-6g-LBm" secondAttribute="bottom" id="A7P-48-Fua"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m5r-aD-LvO" secondAttribute="trailing" constant="110" id="F5l-6m-sHy"/>
-                            <constraint firstItem="9Mc-Y6-Udn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="RcP-PZ-VOg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m5r-aD-LvO" secondAttribute="bottom" constant="15" id="YvE-jf-PLt"/>
                             <constraint firstItem="8IL-6g-LBm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bMf-he-iHh"/>
-                            <constraint firstItem="9Mc-Y6-Udn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="p66-AU-Sea"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Mc-Y6-Udn" secondAttribute="trailing" constant="30" id="eVL-Yv-DNW"/>
+                            <constraint firstItem="9Mc-Y6-Udn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="k0c-lP-7sk"/>
+                            <constraint firstItem="m5r-aD-LvO" firstAttribute="top" secondItem="9Mc-Y6-Udn" secondAttribute="bottom" constant="50" id="qaj-2e-TvE"/>
+                            <constraint firstItem="9Mc-Y6-Udn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="rGJ-yT-U4D"/>
+                            <constraint firstItem="9Mc-Y6-Udn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="y1q-qi-huY"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="playingView" destination="9Mc-Y6-Udn" id="tac-nE-TUs"/>
+                        <outlet property="boardView" destination="9Mc-Y6-Udn" id="gnl-a3-ibr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
