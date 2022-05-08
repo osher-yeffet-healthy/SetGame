@@ -62,7 +62,7 @@ struct SetGame {
     
     mutating func deal3MoreCards() {
         if !canAdd3MoreCards {
-            print("Can't add more cards")
+            print("Can't add more cards!")
         } else {
             for _ in 1...3 {
                 let randIndex = ChooseRand.rand(upperBound: deck.count)

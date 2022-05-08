@@ -28,9 +28,8 @@ final class SetCardView: UIView {
     }
     
     func configureShapesView(_ view: UIView) {
-        view.isOpaque = false
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        view.frame = CGRect(x: bounds.size.width * 0.2, y: bounds.size.height * 0.187_5, width: bounds.size.width * 0.6, height: bounds.size.height * 0.625)
+        view.frame = CGRect(x: bounds.size.width * 0.2, y: bounds.size.height * 0.187_5, width: bounds.size.width * 0.5, height: bounds.size.height * 0.625)
     }
 
     private func drawPath(for shape: Card.Shape, count: Int) -> UIBezierPath {
@@ -85,7 +84,7 @@ final class SetCardView: UIView {
     }
     
     private func configureView() {
-           var drawingColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+           var drawingColor = #colorLiteral(red: 0.7529411912, green: 0.7529411912, blue: 0.7529411912, alpha: 1)
            if let color = color {
                switch color {
                case .green:
@@ -99,14 +98,14 @@ final class SetCardView: UIView {
         if let number = number, let shape = shape, let shading = shading {
             switch number {
             case .one:
-                draw(drawingColor, shape: shape, with: shading)
+                draw2(drawingColor, shape: shape, with: shading)
             case .two:
-                draw(drawingColor, shape: shape, with: shading)
-                draw(drawingColor, shape: shape, with: shading)
+                draw2(drawingColor, shape: shape, with: shading)
+                draw2(drawingColor, shape: shape, with: shading)
             case .three:
-                draw(drawingColor, shape: shape, with: shading)
-                draw(drawingColor, shape: shape, with: shading)
-                draw(drawingColor, shape: shape, with: shading)
+                draw2(drawingColor, shape: shape, with: shading)
+                draw2(drawingColor, shape: shape, with: shading)
+                draw2(drawingColor, shape: shape, with: shading)
             }
         }
     }
@@ -131,19 +130,20 @@ final class SetCardView: UIView {
         case .open: break
         }
     }
-
     init(frame: CGRect, with card: Card) {
         super.init(frame: frame)
         setCard = card
-        layer.cornerRadius = setCardCornerRadius
-    }
-    
-    @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+//        layer.cornerRadius = setCardCornerRadius
     }
 
-    private func draw(_ color: UIColor, shape: Card.Shape, with shading: Card.Shading) {
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        backgroundColor = UIColor.clear
+    }
+
+    private func draw2(_ color: UIColor, shape: Card.Shape, with shading: Card.Shading) {
         let shapePath: UIBezierPath
         switch shape {
         case .diamond:
@@ -154,7 +154,6 @@ final class SetCardView: UIView {
             shapePath = drawPath(for: Card.Shape.oval, count: number?.rawValue ?? 0)
         }
         color.set()
-        
         switch shading {
         case .solid:
             shapePath.fill()
@@ -168,7 +167,8 @@ final class SetCardView: UIView {
     }
     
     private func drawCard() {
-        let card = UIBezierPath(roundedRect: bounds, cornerRadius: 0.06)
+        let card = UIBezierPath(roundedRect: bounds, cornerRadius: Proper.cornerRadius)
+        card.addClip()
         UIColor.white.setFill()
         card.fill()
     }
@@ -184,11 +184,12 @@ extension SetCardView {
         static let cardViewAspectRatio: CGFloat = 5 / 8
         static let cardViewInsetValue: CGFloat = 4.0
         static let shapeRectHeightToShapesViewHeight: CGFloat = 0.3
+        static let cornerRadius = 16.0
     }
     
-    private var setCardCornerRadius: CGFloat {
-        bounds.height * 0.4
-    }
+//    private var setCardCornerRadius: CGFloat {
+//        bounds.height * 0.4
+//    }
     
     private func cardOuterBorderWidth(for path: UIBezierPath, if selected: Bool) -> CGFloat {
         path.bounds.height * (selected ? 0.075 : 0.02)
@@ -238,15 +239,3 @@ extension CGRect {
         CGPoint(x: self.midX, y: self.midY)
     }
 }
-// extension UIBezierPath {
-//    func stripe(in rect: CGRect) {
-//            UIGraphicsGetCurrentContext()?.saveGState()
-//            self.addClip()
-//            for i in stride(from: 0.0, through: Double(rect.size.width), by: 5.0) {
-//                self.move(to: CGPoint(x: rect.origin.x + CGFloat(i), y: rect.origin.y))
-//                self.addLine(to: CGPoint(x: rect.origin.x + CGFloat(i), y: rect.origin.y + rect.size.height))
-//            }
-//            self.stroke()
-//            UIGraphicsGetCurrentContext()?.restoreGState()
-//    }
-// }

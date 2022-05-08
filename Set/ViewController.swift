@@ -9,13 +9,9 @@ import UIKit
 
 final class ViewController: UIViewController {
     private lazy var game = SetGame()
-    let defaultBorderWidth: CGFloat = 0.5
-    let defaultBorderColor = UIColor.darkGray.cgColor
-    let selectedBorderWidth: CGFloat = 3
-    var selectedBorderColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1).cgColor
     
-    @IBOutlet private weak var playingView: SetGameView!
-
+    @IBOutlet private weak var playingView: UIView!
+    
     @IBAction private func deal3MoreCards(_ sender: UIButton) {
         game.deal3MoreCards()
         updateViewFromModel()
@@ -36,7 +32,6 @@ final class ViewController: UIViewController {
         updateViewFromModel()
     }
     
-    
 //    @IBAction private func touchCard(_ sender: UIButton) {
 //        if let cardIndex = cardButton.firstIndex(of: sender) {
 //            if cardIndex < game.screenCards.count {
@@ -50,7 +45,11 @@ final class ViewController: UIViewController {
 //    }
     
     func updateViewFromModel() {
+        for view in playingView.subviews {
+            view.removeFromSuperview()
+        }
         var grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: playingView.bounds)
+
         grid.cellCount = game.screenCards.count
         for index in game.screenCards.indices {
             if let cardViewFrame = grid[index] {

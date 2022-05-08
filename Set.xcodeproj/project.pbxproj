@@ -19,7 +19,6 @@
 		674813C328169E2B003B515A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813C228169E2B003B515A /* Card.swift */; };
 		674813C52816D66F003B515A /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674813C42816D66F003B515A /* SetGame.swift */; };
 		674813C82816F261003B515A /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 674813C72816F261003B515A /* swiftlint.yml */; };
-		67FF0985281FF145005AEC06 /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0984281FF145005AEC06 /* SetGameView.swift */; };
 		67FF098B2821274C005AEC06 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF098A2821274C005AEC06 /* Grid.swift */; };
 		67FF098F28215671005AEC06 /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF098E28215671005AEC06 /* SetCardView.swift */; };
 /* End PBXBuildFile section */
@@ -58,7 +57,6 @@
 		674813C228169E2B003B515A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		674813C42816D66F003B515A /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		674813C72816F261003B515A /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
-		67FF0984281FF145005AEC06 /* SetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameView.swift; sourceTree = "<group>"; };
 		67FF098A2821274C005AEC06 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		67FF098E28215671005AEC06 /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,7 +117,6 @@
 				6748139F28168F8B003B515A /* Info.plist */,
 				674813C228169E2B003B515A /* Card.swift */,
 				674813C42816D66F003B515A /* SetGame.swift */,
-				67FF0984281FF145005AEC06 /* SetGameView.swift */,
 				67FF098A2821274C005AEC06 /* Grid.swift */,
 				67FF098E28215671005AEC06 /* SetCardView.swift */,
 			);
@@ -314,7 +311,6 @@
 				674813C328169E2B003B515A /* Card.swift in Sources */,
 				67FF098F28215671005AEC06 /* SetCardView.swift in Sources */,
 				67FF098B2821274C005AEC06 /* Grid.swift in Sources */,
-				67FF0985281FF145005AEC06 /* SetGameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
