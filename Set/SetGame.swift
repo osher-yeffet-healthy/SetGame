@@ -22,7 +22,7 @@ struct SetGame {
     init() {
         deck = [Card]()
         var index = 0
-        for num in 1...3 {
+        for num in Card.Number.allCases {
             for color in Card.Color.allCases {
                 for shape in Card.Shape.allCases {
                     for shading in Card.Shading.allCases {
@@ -44,7 +44,7 @@ struct SetGame {
     var cardSelected = [Card]()
     
     var remainingCardsInDeck: Int {
-        deck.count
+            deck.count
     }
     
     var canAdd3MoreCards: Bool {
@@ -52,7 +52,7 @@ struct SetGame {
     }
     
     var isGameEnd: Bool {
-        deck.isEmpty // complete
+        deck.isEmpty
     }
     
     enum MatchingStatus: String {
@@ -61,19 +61,14 @@ struct SetGame {
     }
     
     mutating func deal3MoreCards() {
-//        if MatchingStatus == .match {
-//            screenCards.remove(at: cardSelectedIndex)
-//            cardSelectedIndex.removeAll()
-//        }
         if !canAdd3MoreCards {
-            return
-        }
-        
-        for _ in 1...3 {
-            let randIndex = ChooseRand.rand(upperBound: deck.count)
-            screenCards.append(deck[randIndex])
-            deck[randIndex].isOn = true
-            deck.remove(at: randIndex)
+            print("Can't add more cards")
+        } else {
+            for _ in 1...3 {
+                let randIndex = ChooseRand.rand(upperBound: deck.count)
+                screenCards.append(deck[randIndex])
+                deck.remove(at: randIndex)
+            }
         }
     }
     
@@ -94,10 +89,10 @@ struct SetGame {
     
     mutating func replaceMatchedCards() {
         for card in cardSelected where card.isMatch {
-                if let index = deck.firstIndex(of: card) {
-                    deck[index].isDiscard = true
+                if let index = screenCards.firstIndex(of: card) {
+                    screenCards[index].isDiscard = true
                       if cardIndex < deck.count {
-                          deck[cardIndex].wasDealt = true
+//                        deck[cardIndex].wasDealt = true
                           cardIndex += 1
                   }
               }
@@ -117,32 +112,33 @@ struct SetGame {
                         }
                     }
                 }
-                       if cardSelected.count == 3 {
-                           checkIfSet()
-                       }
-                   }
+                if cardSelected.count == 3 {
+                    checkIfSet()
+                }
+            }
+        } else {
+               if remainingCardsInDeck > 0 {
+                   replaceMatchedCards()
                } else {
-                   if remainingCardsInDeck > 0 {
-                       replaceMatchedCards()
-                   } else {
-                       screenCards.filter { theCard in theCard.isSelected && theCard.isMatch }.forEach { theCard in
-                           if let index = screenCards.firstIndex(of: theCard) {
-                               screenCards[index].isDiscard = true }
-                       }
-                   }
-                   deselectAll()
-                   if let chosenIndex = screenCards.firstIndex(of: theCard) {
-                       screenCards[chosenIndex].isSelected = true
+                   screenCards.filter { theCard in theCard.isSelected && theCard.isMatch }.forEach { theCard in
+                       if let index = screenCards.firstIndex(of: theCard) {
+                           screenCards[index].isDiscard = true }
                    }
                }
+               deselectAll()
+               if let chosenIndex = screenCards.firstIndex(of: theCard) {
+                   screenCards[chosenIndex].isSelected = true
+               }
+           }
     }
     mutating func deselectAll() {
         for card in cardSelected {
                if let index = screenCards.firstIndex(of: card) {
                    screenCards[index].isSelected   = false
                    screenCards[index].isMismatched = false
+                   screenCards.removeAll()
                }
-           }
+        }
     }
     
     mutating func checkIfSet() {
@@ -150,6 +146,7 @@ struct SetGame {
             for card in cardSelected {
                 if let index = screenCards.firstIndex(of: card) {
                     screenCards[index].isMatch = true
+                    screenCards.remove(at: index)
                 }
              }
         } else {
