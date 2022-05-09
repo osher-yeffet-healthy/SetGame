@@ -8,6 +8,7 @@
 import UIKit
 
 final class SetCardView: UIView {
+    var cards = [Card]()
     var setCard: Card?
     var number: Card.Number? { didSet { setNeedsDisplay() } }
     var shape: Card.Shape? { didSet { setNeedsDisplay() } }
@@ -134,7 +135,6 @@ final class SetCardView: UIView {
         super.init(frame: frame)
         setCard = card
         backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-//        layer.cornerRadius = setCardCornerRadius
     }
 
     @available(*, unavailable)

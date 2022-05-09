@@ -4,14 +4,14 @@
 //
 //  Created by Osher Yeffet on 25/04/2022.
 //
-
+import GameplayKit.GKRandomSource
 import Foundation
 
 struct SetGame {
     private(set) var deck = [Card]()
-    private(set) var screenCards = [Card]()
+    var screenCards = [Card]()
     private(set) var cardToRemove = [Card]()
-    private(set) var maxCardOnScreen = 24
+    private(set) var maxCardOnScreen = 81
     private(set) var cardSelectedIndex = [Int]()
     
 //    var remainedCardsInDeck: Bool {
@@ -77,13 +77,13 @@ struct SetGame {
             return false
         }
         let allNumbersMatch: Bool = (chosen[0].cardNum == chosen[1].cardNum && chosen[1].cardNum == chosen[2].cardNum)
-        let allNumbersDiff: Bool = (chosen[0].cardNum != chosen[1].cardNum && chosen[1].cardNum != chosen[2].cardNum)
+        let allNumbersDiff: Bool = (chosen[0].cardNum != chosen[1].cardNum && chosen[1].cardNum != chosen[2].cardNum && chosen[0].cardNum != chosen[2].cardNum)
         let allShapesMatch: Bool = (chosen[0].cardShape == chosen[1].cardShape && chosen[1].cardShape == chosen[2].cardShape)
-        let allShapesDiff: Bool = (chosen[0].cardShape != chosen[1].cardShape && chosen[1].cardShape != chosen[2].cardShape)
+        let allShapesDiff: Bool = (chosen[0].cardShape != chosen[1].cardShape && chosen[1].cardShape != chosen[2].cardShape && chosen[0].cardShape != chosen[2].cardShape)
         let allColorsMatch: Bool = (chosen[0].cardColor == chosen[1].cardColor && chosen[1].cardColor == chosen[2].cardColor)
-        let allColorsDiff: Bool = (chosen[0].cardColor != chosen[1].cardColor && chosen[1].cardColor != chosen[2].cardColor)
+        let allColorsDiff: Bool = (chosen[0].cardColor != chosen[1].cardColor && chosen[1].cardColor != chosen[2].cardColor && chosen[0].cardColor != chosen[2].cardColor)
         let allShadingMatch: Bool = (chosen[0].cardShading == chosen[1].cardShading && chosen[1].cardShading == chosen[2].cardShading)
-        let allShadingDiff: Bool = (chosen[0].cardShading != chosen[1].cardShading && chosen[1].cardShading != chosen[2].cardShading)
+        let allShadingDiff: Bool = (chosen[0].cardShading != chosen[1].cardShading && chosen[1].cardShading != chosen[2].cardShading && chosen[0].cardShading != chosen[2].cardShading)
         return (allNumbersMatch || allNumbersDiff) && (allColorsDiff || allColorsMatch) && (allShapesDiff || allShapesMatch) && (allShadingDiff || allShadingMatch)
     }
     
@@ -92,7 +92,6 @@ struct SetGame {
                 if let index = screenCards.firstIndex(of: card) {
                     screenCards[index].isDiscard = true
                       if cardIndex < deck.count {
-//                        deck[cardIndex].wasDealt = true
                           cardIndex += 1
                   }
               }
@@ -156,6 +155,10 @@ struct SetGame {
                 }
             }
         }
+    }
+    
+    mutating func shuffleCards() {
+        screenCards.shuffle()
     }
 }
 enum ChooseRand {
