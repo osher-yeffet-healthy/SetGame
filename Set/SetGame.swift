@@ -14,25 +14,28 @@ struct SetGame {
     private(set) var maxCardOnScreen = 81
     private(set) var cardSelectedIndex = [Int]()
     
-//    var remainedCardsInDeck: Bool {
-//        return cardIndex < deck.count
-//    }
+    //    var remainedCardsInDeck: Bool {
+    //        return cardIndex < deck.count
+    //    }
     var cardIndex = 0
-
+    
     init() {
         deck = [Card]()
-        var index = 0
         for num in Card.Number.allCases {
             for color in Card.Color.allCases {
                 for shape in Card.Shape.allCases {
                     for shading in Card.Shading.allCases {
-                        deck.append(Card(cardColor: color, cardShape: shape, cardShading: shading, cardNum: num, cardIndex: index))
-                        index += 1
+                        deck.append(Card(cardColor: color, cardShape: shape, cardShading: shading, cardNum: num, cardIndex: 0))
                     }
                 }
             }
         }
         deck.shuffle()
+        
+        for index in deck.indices {
+            deck[index].cardIndex = index
+        }
+        
         for _ in 0..<12 {
             let randIndex = ChooseRand.rand(upperBound: deck.count)
             screenCards.append(deck[randIndex])
@@ -44,7 +47,7 @@ struct SetGame {
     var cardSelected = [Card]()
     
     var remainingCardsInDeck: Int {
-            deck.count
+        deck.count
     }
     
     var canAdd3MoreCards: Bool {
@@ -53,11 +56,6 @@ struct SetGame {
     
     var isGameEnd: Bool {
         deck.isEmpty
-    }
-    
-    enum MatchingStatus: String {
-        case match
-        case misMatch
     }
     
     mutating func deal3MoreCards() {
@@ -87,16 +85,25 @@ struct SetGame {
         return (allNumbersMatch || allNumbersDiff) && (allColorsDiff || allColorsMatch) && (allShapesDiff || allShapesMatch) && (allShadingDiff || allShadingMatch)
     }
     
+//    mutating func replaceMatchedCards() {
+//        for card in cardSelected where card.isMatch {
+//            if let index = screenCards.firstIndex(of: card) {
+//                screenCards[index].isDiscard = true
+//                if cardIndex < deck.count {
+//                    cardIndex += 1
+//                }
+//            }
+//        }
+//    }
     mutating func replaceMatchedCards() {
-        for card in cardSelected where card.isMatch {
-                if let index = screenCards.firstIndex(of: card) {
-                    screenCards[index].isDiscard = true
-                      if cardIndex < deck.count {
-                          cardIndex += 1
-                  }
-              }
-          }
-      }
+        if deck.count >= 3 {
+            for i in 0...2 {
+                screenCards += [deck[i]]
+            }
+            // Remove from cardDeck
+        deck.removeSubrange(ClosedRange(uncheckedBounds: (lower: 0, upper: 2)))
+        }
+    }
     
     mutating func chooseCard(theCard: Card) {
         if cardSelected.count < 3 {
@@ -106,8 +113,8 @@ struct SetGame {
                     cardSelected.append(screenCards[chosenIndex])
                 } else {
                     if cardSelected.contains(screenCards[chosenIndex]) {
-                        if let cardIndex = cardSelected.firstIndex(of: screenCards[chosenIndex]) {
-                        cardSelected.remove(at: cardIndex)
+                        if let cardIndex = cardSelected.firstIndex(of: screenCards[chosenIndex]), cardSelected.count < 3 {
+                            cardSelected.remove(at: cardIndex)
                         }
                     }
                 }
@@ -116,27 +123,28 @@ struct SetGame {
                 }
             }
         } else {
-               if remainingCardsInDeck > 0 {
-                   replaceMatchedCards()
-               } else {
-                   screenCards.filter { theCard in theCard.isSelected && theCard.isMatch }.forEach { theCard in
-                       if let index = screenCards.firstIndex(of: theCard) {
-                           screenCards[index].isDiscard = true }
-                   }
-               }
-               deselectAll()
-               if let chosenIndex = screenCards.firstIndex(of: theCard) {
-                   screenCards[chosenIndex].isSelected = true
-               }
-           }
+            if remainingCardsInDeck > 0 {
+                cardSelected[0].isDiscard = true
+//                replaceMatchedCards()
+            } else {
+                screenCards.filter { theCard in theCard.isSelected && theCard.isMatch }.forEach { theCard in
+                    if let index = screenCards.firstIndex(of: theCard) {
+                        screenCards[index].isDiscard = true }
+                }
+            }
+            deselectAll()
+            if let chosenIndex = screenCards.firstIndex(of: theCard) {
+                screenCards[chosenIndex].isSelected = true
+            }
+        }
     }
     mutating func deselectAll() {
         for card in cardSelected {
-               if let index = screenCards.firstIndex(of: card) {
-                   screenCards[index].isSelected   = false
-                   screenCards[index].isMismatched = false
-                   screenCards.removeAll()
-               }
+            if let index = screenCards.firstIndex(of: card) {
+                screenCards[index].isSelected   = false
+                screenCards[index].isMismatched = false
+                screenCards.removeAll()
+            }
         }
     }
     
@@ -147,7 +155,10 @@ struct SetGame {
                     screenCards[index].isMatch = true
                     screenCards.remove(at: index)
                 }
-             }
+            }
+            if remainingCardsInDeck > 0 {
+                replaceMatchedCards()
+            }
         } else {
             for card in cardSelected {
                 if let index = screenCards.firstIndex(of: card) {
@@ -166,7 +177,7 @@ enum ChooseRand {
         Int.random(in: 0..<max)
     }
 }
-    
+
 extension Array {
     mutating func remove(at indexes: [Int]) {
         for index in indexes.sorted(by: >) {

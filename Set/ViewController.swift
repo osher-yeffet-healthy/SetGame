@@ -64,11 +64,12 @@ final class ViewController: UIViewController {
     }
     
     @IBAction private func touchCard(_ sender: UITapGestureRecognizer) {
-//        if let cardIndex = cardButton.firstIndex(of: sender) {
         switch sender.state {
         case .ended:
-            guard let target = playingView.hitTest(sender.location(in: playingView), with: nil) as? SetCardView else { return }
+            var target = sender.view!
+            playingView.isUserInteractionEnabled = true
             if let cardNum = playingView.subviews.firstIndex(of: target) {
+                print("the chosen: \(cardNum)")
                 game.chooseCard(theCard: game.screenCards[cardNum])
                 updateViewFromModel()
             }
@@ -100,12 +101,15 @@ final class ViewController: UIViewController {
     
     func updateViewFromModel() {
         var grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: boardView.bounds)
-        removeAllSubviews()
+            removeAllSubviews()
+//            removeAllSubviews()
         grid.cellCount = game.screenCards.count
         for index in game.screenCards.indices {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(touchCard(_:)))
             if let cardViewFrame = grid[index] {
                 let card = game.screenCards[index]
                 let cardView = SetCardView(frame: cardViewFrame.insetBy(dx: CGFloat(0.3), dy: CGFloat(0.3)), with: card)
+                cardView.addGestureRecognizer(tap)
                 cardView.color = card.cardColor
                 cardView.number = card.cardNum
                 cardView.shading = card.cardShading

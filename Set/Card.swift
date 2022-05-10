@@ -17,7 +17,6 @@ struct Card: Equatable {
     var isMatch = false
     var isDiscard = false
     var isMismatched = false
-    var wasDealt = false
     var isOn = false
     
     static func == (card1: Card, card2: Card) -> Bool {
