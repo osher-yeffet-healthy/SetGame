@@ -4,19 +4,14 @@
 //
 //  Created by Osher Yeffet on 25/04/2022.
 //
-import GameplayKit.GKRandomSource
 import Foundation
 
 struct SetGame {
     private(set) var deck = [Card]()
     var screenCards = [Card]()
-    private(set) var cardToRemove = [Card]()
     private(set) var maxCardOnScreen = 81
-    private(set) var cardSelectedIndex = [Int]()
+    private(set) var matchedCards = [Int]()
     
-    //    var remainedCardsInDeck: Bool {
-    //        return cardIndex < deck.count
-    //    }
     var cardIndex = 0
     
     init() {
@@ -46,9 +41,9 @@ struct SetGame {
     
     var cardSelected = [Card]()
     
-    var remainingCardsInDeck: Int {
-        deck.count
-    }
+//    var remainingCardsInDeck: Int {
+//        deck.count
+//    }
     
     var canAdd3MoreCards: Bool {
         !deck.isEmpty && screenCards.count + 3 <= maxCardOnScreen
@@ -85,65 +80,93 @@ struct SetGame {
         return (allNumbersMatch || allNumbersDiff) && (allColorsDiff || allColorsMatch) && (allShapesDiff || allShapesMatch) && (allShadingDiff || allShadingMatch)
     }
     
-//    mutating func replaceMatchedCards() {
-//        for card in cardSelected where card.isMatch {
-//            if let index = screenCards.firstIndex(of: card) {
-//                screenCards[index].isDiscard = true
-//                if cardIndex < deck.count {
-//                    cardIndex += 1
-//                }
-//            }
-//        }
-//    }
     mutating func replaceMatchedCards() {
         if deck.count >= 3 {
             for i in 0...2 {
                 screenCards += [deck[i]]
             }
-            // Remove from cardDeck
-        deck.removeSubrange(ClosedRange(uncheckedBounds: (lower: 0, upper: 2)))
+            deck.removeSubrange(ClosedRange(uncheckedBounds: (lower: 0, upper: 2)))
         }
     }
     
+    //    mutating func chooseCard(theCard: Card) {
+    //        if cardSelected.count < 3 {
+    //            if let chosenIndex = screenCards.firstIndex(of: theCard) {
+    //                if cardSelected.contains(screenCards[chosenIndex]) {
+    //                    cardSelected.remove(at: chosenIndex)
+    //                } else {
+    //                    cardSelected.append(screenCards[chosenIndex])
+    //                }
+    //            }
+    //            if cardSelected.count == 3 {
+    //                checkIfSet()
+    //            }
+    //        } else if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
+    //            checkIfSet()
+    //            cardSelected.forEach {
+    //                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
+    //                    screenCards.remove(at: selectedCardInGameIndex)
+    //                    if !deck.isEmpty {
+    //                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
+    //                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
+    //                    }
+    //                }
+    //            }
+    //            cardSelected.removeAll()
+    //        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
+    //            cardSelected.removeAll()
+    //        }
+    //    }
     mutating func chooseCard(theCard: Card) {
-        if cardSelected.count < 3 {
-            if let chosenIndex = screenCards.firstIndex(of: theCard) {
-                screenCards[chosenIndex].isSelected = !screenCards[chosenIndex].isSelected
-                if screenCards[chosenIndex].isSelected {
-                    cardSelected.append(screenCards[chosenIndex])
-                } else {
-                    if cardSelected.contains(screenCards[chosenIndex]) {
-                        if let cardIndex = cardSelected.firstIndex(of: screenCards[chosenIndex]), cardSelected.count < 3 {
-                            cardSelected.remove(at: cardIndex)
-                        }
+        if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
+            checkIfSet()
+            cardSelected.forEach {
+                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
+                    screenCards.remove(at: selectedCardInGameIndex)
+                    if !deck.isEmpty {
+                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
+                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
                     }
                 }
-                if cardSelected.count == 3 {
-                    checkIfSet()
-                }
             }
+            cardSelected.removeAll()
+        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
+            cardSelected.removeAll()
+        }
+        if let cardToSelect = cardSelected.firstIndex(of: theCard) {
+            cardSelected.remove(at: cardToSelect)
         } else {
-            if remainingCardsInDeck > 0 {
-                cardSelected[0].isDiscard = true
-//                replaceMatchedCards()
-            } else {
-                screenCards.filter { theCard in theCard.isSelected && theCard.isMatch }.forEach { theCard in
-                    if let index = screenCards.firstIndex(of: theCard) {
-                        screenCards[index].isDiscard = true }
-                }
-            }
-            deselectAll()
-            if let chosenIndex = screenCards.firstIndex(of: theCard) {
-                screenCards[chosenIndex].isSelected = true
-            }
+            cardSelected.append(theCard)
         }
     }
+    
+//    mutating func chooseCard(theCard: Card) { my baby
+//        if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
+//            checkIfSet()
+//            cardSelected.forEach {
+//                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
+//                    screenCards.remove(at: selectedCardInGameIndex)
+//                    if !deck.isEmpty {
+//                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
+//                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
+//                    }
+//                }
+//            }
+//            cardSelected.removeAll()
+//        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
+//            cardSelected.removeAll()
+//        }
+//        if let cardToSelect = cardSelected.firstIndex(of: theCard) {
+//            cardSelected.remove(at: cardToSelect)
+//        } else {
+//            cardSelected.append(theCard)
+//        }
+//    }
+    
     mutating func deselectAll() {
         for card in cardSelected {
             if let index = screenCards.firstIndex(of: card) {
-                screenCards[index].isSelected   = false
                 screenCards[index].isMismatched = false
-                screenCards.removeAll()
             }
         }
     }
@@ -153,12 +176,12 @@ struct SetGame {
             for card in cardSelected {
                 if let index = screenCards.firstIndex(of: card) {
                     screenCards[index].isMatch = true
-                    screenCards.remove(at: index)
+//                    screenCards.remove(at: index)
                 }
             }
-            if remainingCardsInDeck > 0 {
-                replaceMatchedCards()
-            }
+//            if remainingCardsInDeck > 0 {
+//                replaceMatchedCards()
+//            }
         } else {
             for card in cardSelected {
                 if let index = screenCards.firstIndex(of: card) {

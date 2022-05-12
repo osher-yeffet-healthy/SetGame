@@ -13,7 +13,6 @@ struct Card: Equatable {
     var cardShading: Shading
     var cardNum: Number
     var cardIndex: Int
-    var isSelected = false
     var isMatch = false
     var isDiscard = false
     var isMismatched = false
