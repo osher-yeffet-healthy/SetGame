@@ -7,14 +7,43 @@
 
 import UIKit
 
-final class SetCardView: UIView {
+@IBDesignable final class SetCardView: UIView {
     var cards = [Card]()
     var setCard: Card?
     var number: Card.Number? { didSet { setNeedsDisplay() } }
     var shape: Card.Shape? { didSet { setNeedsDisplay() } }
     var color: Card.Color? { didSet { setNeedsDisplay() } }
     var shading: Card.Shading? { didSet { setNeedsDisplay() } }
+    private var isFaceUp = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    // swiftlint:disable all
+    public func isCardFaceUp() -> Bool { isFaceUp }
     
+    public func flipCard(closure: @escaping () -> Void) {
+        UIView.transition(with: self, duration: 0.6, options: [.transitionFlipFromLeft], animations: { self.isFaceUp = !self.isFaceUp }, completion: { _ in closure() })
+    }
+    
+//    public override func draw(_ rect: CGRect) {
+//        if !isFaceUp {
+//            drawBackOfCard()
+//        } else {
+//            drawFrontOfCard()
+//        }
+//    }
+    private func drawBackOfCard() {
+        self.layer.cornerRadius = Proper.cornerRadius
+        self.clipsToBounds = true
+        let roundRect = UIBezierPath(roundedRect: bounds, cornerRadius: Proper.cornerRadius)
+        roundRect.addClip()
+        roundRect.lineWidth = 4.5
+        UIColor.gray.setFill()
+        UIColor.gray.setStroke()
+        roundRect.fill()
+        roundRect.stroke()
+    }
     lazy var viewOfOneShape = createShapeView()
     
     override func layoutSubviews() {
@@ -175,7 +204,12 @@ final class SetCardView: UIView {
     
     override func draw(_ rect: CGRect) {
         drawCard()
-        configureView()
+//        configureView()
+        if !isFaceUp {
+            drawBackOfCard()
+        } else {
+            configureView()
+        }
     }
 }
 

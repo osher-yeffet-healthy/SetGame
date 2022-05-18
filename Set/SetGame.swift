@@ -34,7 +34,6 @@ struct SetGame {
         for _ in 0..<12 {
             let randIndex = ChooseRand.rand(upperBound: deck.count)
             screenCards.append(deck[randIndex])
-            deck[randIndex].isOn = true
             deck.remove(at: randIndex)
         }
     }

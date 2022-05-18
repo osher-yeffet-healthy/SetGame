@@ -21,7 +21,6 @@
 		674813C82816F261003B515A /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 674813C72816F261003B515A /* swiftlint.yml */; };
 		67FF098B2821274C005AEC06 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF098A2821274C005AEC06 /* Grid.swift */; };
 		67FF098F28215671005AEC06 /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF098E28215671005AEC06 /* SetCardView.swift */; };
-		67FF0993282D46BC005AEC06 /* FlyawayBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0992282D46BC005AEC06 /* FlyawayBehavior.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		674813C72816F261003B515A /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		67FF098A2821274C005AEC06 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		67FF098E28215671005AEC06 /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
-		67FF0992282D46BC005AEC06 /* FlyawayBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyawayBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +119,6 @@
 				674813C42816D66F003B515A /* SetGame.swift */,
 				67FF098A2821274C005AEC06 /* Grid.swift */,
 				67FF098E28215671005AEC06 /* SetCardView.swift */,
-				67FF0992282D46BC005AEC06 /* FlyawayBehavior.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -312,7 +309,6 @@
 				674813C52816D66F003B515A /* SetGame.swift in Sources */,
 				6748139428168F74003B515A /* SceneDelegate.swift in Sources */,
 				674813C328169E2B003B515A /* Card.swift in Sources */,
-				67FF0993282D46BC005AEC06 /* FlyawayBehavior.swift in Sources */,
 				67FF098F28215671005AEC06 /* SetCardView.swift in Sources */,
 				67FF098B2821274C005AEC06 /* Grid.swift in Sources */,
 			);

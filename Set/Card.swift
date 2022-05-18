@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Equatable {
+final class Card: Equatable {
     var cardColor: Color
     var cardShape: Shape
     var cardShading: Shading
@@ -16,7 +16,15 @@ struct Card: Equatable {
     var isMatch = false
     var isDiscard = false
     var isMismatched = false
-    var isOn = false
+//    var isOn = false
+    
+    init(cardColor: Color, cardShape: Shape, cardShading: Shading, cardNum: Number, cardIndex: Int) {
+        self.cardNum = cardNum
+        self.cardColor = cardColor
+        self.cardShading = cardShading
+        self.cardShape = cardShape
+        self.cardIndex = cardIndex
+    }
     
     static func == (card1: Card, card2: Card) -> Bool {
             card1.cardNum == card2.cardNum

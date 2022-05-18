@@ -10,13 +10,24 @@ import UIKit
 final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
     private lazy var game = SetGame()
     private var cardButton = [Card]()
+    private lazy var grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: boardView.bounds.insetBy(dx: CGFloat(0.9), dy: CGFloat(0.9)))
     
     @IBOutlet private weak var boardView: UIView!
     
+    @IBOutlet private weak var deckPile: UIView!
+
+    @IBOutlet private weak var discardPile: UIView!
+    
     private lazy var animator = UIDynamicAnimator(referenceView: view)
+    private var animator2: UIViewPropertyAnimator!
     
     @IBAction private func deal3MoreCards(_ sender: UIButton) {
         game.deal3MoreCards()
+        updateViewFromModel()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         updateViewFromModel()
     }
     
@@ -52,6 +63,7 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
         updateViewFromModel()
         animator.delegate = self
         startNewGame()
+        deckPile.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deal3MoreCards(_:))))
     }
     
     private func removeAllSubviews() {
@@ -74,13 +86,8 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
         }
     }
     
-    //    func flipCard() {
-    //        if let chosenCardView =
-    //        UIView.transition(with: chosenCardView, duration: <#T##TimeInterval#>, animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
-    //    }
-    
     func updateViewFromModel() {
-        var grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: boardView.bounds.insetBy(dx: CGFloat(0.9), dy: CGFloat(0.9)))
+        grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: boardView.bounds.insetBy(dx: CGFloat(0.9), dy: CGFloat(0.9)))
         removeAllSubviews()
         grid.cellCount = game.screenCards.count
         for index in game.screenCards.indices {
@@ -88,9 +95,27 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
             if let cardViewFrame = grid[index] {
                 let card = game.screenCards[index]
                 let cardView = SetCardView(frame: cardViewFrame.insetBy(dx: CGFloat(0.9), dy: CGFloat(0.9)), with: card)
+                if game.screenCards.contains(card) {
+                    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5,
+                                                                   delay: 0,
+                                                                   options: [.curveEaseIn],
+                                                                   animations: { cardView.frame = cardViewFrame.insetBy(dx: 2, dy: 2) },
+                                                                   completion: { _ in if !cardView.isCardFaceUp() {
+                                                                       cardView.flipCard(closure: {}) }})
+                } else {
+                    cardView.flipCard(closure: { UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.6,
+                                                                                                delay: 0,
+                                                                                                options: [.curveEaseIn, .beginFromCurrentState],
+                                                                                                animations: {
+                        cardView.frame = CGRect(x: self.boardView.bounds.width - cardView.bounds.width, y: 0, width: cardView.bounds.width, height: cardView.bounds.height)
+                    }, completion: { _ in
+                        cardView.removeFromSuperview()
+                    })
+                    })
+                }
                 cardView.addGestureRecognizer(tap)
                 cardView.setNeedsDisplay()
-//                flyawayBehavior.addItem(cardView)
+                //                flyawayBehavior.addItem(cardView)
                 cardView.color = card.cardColor
                 cardView.number = card.cardNum
                 cardView.shading = card.cardShading
@@ -99,6 +124,11 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
                 if game.cardSelected.contains(card) {
                     cardView.layer.borderWidth = 5
                     cardView.layer.borderColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+                    if card.isMatch {
+                        cardView.alpha = 0
+                    } else if card.isMismatched {
+                        cardView.layer.borderColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
+                    }
                 }
             }
         }
