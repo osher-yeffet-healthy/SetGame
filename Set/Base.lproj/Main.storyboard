@@ -23,14 +23,14 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="510-uX-yRk">
                                 <rect key="frame" x="20" y="773" width="110.5" height="130"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="510-uX-yRk" secondAttribute="height" multiplier="91:107" id="37s-7k-TEs"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qez-Ou-wS8">
                                 <rect key="frame" x="283.5" y="773" width="110.5" height="130"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="qez-Ou-wS8" secondAttribute="height" multiplier="91:107" id="C8N-48-Xk7"/>
                                     <constraint firstAttribute="width" secondItem="qez-Ou-wS8" secondAttribute="height" multiplier="91:107" id="Nm3-9z-sze"/>
@@ -94,9 +94,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

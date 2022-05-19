@@ -14,7 +14,7 @@ import UIKit
     var shape: Card.Shape? { didSet { setNeedsDisplay() } }
     var color: Card.Color? { didSet { setNeedsDisplay() } }
     var shading: Card.Shading? { didSet { setNeedsDisplay() } }
-    private var isFaceUp = false {
+    private var isFaceUp = true {
         didSet {
             setNeedsDisplay()
         }
@@ -33,7 +33,8 @@ import UIKit
 //            drawFrontOfCard()
 //        }
 //    }
-    private func drawBackOfCard() {
+    // swiftlint:disable all
+    func drawBackOfCard() {
         self.layer.cornerRadius = Proper.cornerRadius
         self.clipsToBounds = true
         let roundRect = UIBezierPath(roundedRect: bounds, cornerRadius: Proper.cornerRadius)

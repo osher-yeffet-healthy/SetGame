@@ -15,7 +15,7 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
     @IBOutlet private weak var boardView: UIView!
     
     @IBOutlet private weak var deckPile: UIView!
-
+    
     @IBOutlet private weak var discardPile: UIView!
     
     private lazy var animator = UIDynamicAnimator(referenceView: view)
@@ -64,6 +64,8 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
         animator.delegate = self
         startNewGame()
         deckPile.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deal3MoreCards(_:))))
+        deckPile.alpha = 1
+        discardPile.alpha = 0
     }
     
     private func removeAllSubviews() {
@@ -90,45 +92,52 @@ final class ViewController: UIViewController, UIDynamicAnimatorDelegate {
         grid = Grid(layout: .aspectRatio(SetCardView.Proper.cardViewAspectRatio), frame: boardView.bounds.insetBy(dx: CGFloat(0.9), dy: CGFloat(0.9)))
         removeAllSubviews()
         grid.cellCount = game.screenCards.count
+        if game.isGameEnd {
+            deckPile.alpha = 0
+        }
         for index in game.screenCards.indices {
             let tap = UITapGestureRecognizer(target: self, action: #selector(touchCard(_:)))
             if let cardViewFrame = grid[index] {
                 let card = game.screenCards[index]
                 let cardView = SetCardView(frame: cardViewFrame.insetBy(dx: CGFloat(0.9), dy: CGFloat(0.9)), with: card)
-                if game.screenCards.contains(card) {
-                    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5,
-                                                                   delay: 0,
-                                                                   options: [.curveEaseIn],
-                                                                   animations: { cardView.frame = cardViewFrame.insetBy(dx: 2, dy: 2) },
-                                                                   completion: { _ in if !cardView.isCardFaceUp() {
-                                                                       cardView.flipCard(closure: {}) }})
-                } else {
-                    cardView.flipCard(closure: { UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.6,
-                                                                                                delay: 0,
-                                                                                                options: [.curveEaseIn, .beginFromCurrentState],
-                                                                                                animations: {
-                        cardView.frame = CGRect(x: self.boardView.bounds.width - cardView.bounds.width, y: 0, width: cardView.bounds.width, height: cardView.bounds.height)
-                    }, completion: { _ in
-                        cardView.removeFromSuperview()
-                    })
-                    })
-                }
+//                if game.screenCards.contains(card) {
+//                    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5,
+//                                                                   delay: 0,
+//                                                                   options: [.curveEaseIn],
+//                                                                   animations: { cardView.frame = cardViewFrame.insetBy(dx: 2, dy: 2) },
+//                                                                   completion: { _ in if !cardView.isCardFaceUp() {
+//                                                                       cardView.flipCard(closure: {}) }})
+//                } else {
+//                    cardView.flipCard(closure: { UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.6,
+//                                                                                                delay: 0,
+//                                                                                                options: [.curveEaseIn, .beginFromCurrentState],
+//                                                                                                animations: {
+//                        cardView.frame = CGRect(x: self.boardView.bounds.width - cardView.bounds.width, y: 0, width: cardView.bounds.width, height: cardView.bounds.height)
+//                    }, completion: { _ in
+//                        cardView.removeFromSuperview()
+//                    })
+//                    })
+//                }
                 cardView.addGestureRecognizer(tap)
                 cardView.setNeedsDisplay()
-                //                flyawayBehavior.addItem(cardView)
+                // flyawayBehavior.addItem(cardView)
                 cardView.color = card.cardColor
                 cardView.number = card.cardNum
                 cardView.shading = card.cardShading
                 cardView.shape = card.cardShape
                 boardView.addSubview(cardView)
-                if game.cardSelected.contains(card) {
+                //                if game.cardSelected.contains(card) {
+                if card.isSelected {
                     cardView.layer.borderWidth = 5
                     cardView.layer.borderColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-                    if card.isMatch {
-                        cardView.alpha = 0
-                    } else if card.isMismatched {
-                        cardView.layer.borderColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
-                    }
+                } else {
+                    cardView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                }
+                if card.isMatch {
+                    cardView.layer.borderColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+                    discardPile.alpha = 1
+                } else if card.isMismatched {
+                    cardView.layer.borderColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
                 }
             }
         }

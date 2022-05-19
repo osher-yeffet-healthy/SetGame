@@ -16,7 +16,7 @@ final class Card: Equatable {
     var isMatch = false
     var isDiscard = false
     var isMismatched = false
-//    var isOn = false
+    var isSelected = false
     
     init(cardColor: Color, cardShape: Shape, cardShading: Shading, cardNum: Number, cardIndex: Int) {
         self.cardNum = cardNum

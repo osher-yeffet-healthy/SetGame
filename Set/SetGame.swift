@@ -40,9 +40,15 @@ struct SetGame {
     
     var cardSelected = [Card]()
     
-//    var remainingCardsInDeck: Int {
-//        deck.count
-//    }
+    //    var remainingCardsInDeck: Int {
+    //        deck.count
+    //    }
+    
+    var selectedCards: [Card] {
+        screenCards.filter {card in
+            card.isSelected
+        }
+    }
     
     var canAdd3MoreCards: Bool {
         !deck.isEmpty && screenCards.count + 3 <= maxCardOnScreen
@@ -80,130 +86,165 @@ struct SetGame {
     }
     
     mutating func replaceMatchedCards() {
-        if deck.count >= 3 {
-            for i in 0...2 {
-                screenCards += [deck[i]]
+        if cardsMakeASet(chosen: selectedCards) {
+            self.selectedCards.forEach { card in
+                if let index = screenCards.firstIndex(of: card) {
+                    screenCards.remove(at: index)
+                }
+                if deck.count >= 3 {
+                    for i in 0...2 {
+                        screenCards += [deck[i]]
+                    }
+                    deck.removeSubrange(ClosedRange(uncheckedBounds: (lower: 0, upper: 2)))
+                }
             }
-            deck.removeSubrange(ClosedRange(uncheckedBounds: (lower: 0, upper: 2)))
         }
     }
-    
-    //    mutating func chooseCard(theCard: Card) {
-    //        if cardSelected.count < 3 {
-    //            if let chosenIndex = screenCards.firstIndex(of: theCard) {
-    //                if cardSelected.contains(screenCards[chosenIndex]) {
-    //                    cardSelected.remove(at: chosenIndex)
-    //                } else {
-    //                    cardSelected.append(screenCards[chosenIndex])
-    //                }
-    //            }
-    //            if cardSelected.count == 3 {
-    //                checkIfSet()
-    //            }
-    //        } else if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
-    //            checkIfSet()
-    //            cardSelected.forEach {
-    //                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
-    //                    screenCards.remove(at: selectedCardInGameIndex)
-    //                    if !deck.isEmpty {
-    //                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
-    //                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
-    //                    }
-    //                }
-    //            }
-    //            cardSelected.removeAll()
-    //        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
-    //            cardSelected.removeAll()
-    //        }
-    //    }
-    mutating func chooseCard(theCard: Card) {
-        if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
-            checkIfSet()
-            cardSelected.forEach {
-                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
-                    screenCards.remove(at: selectedCardInGameIndex)
-                    if !deck.isEmpty {
-                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
-                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
+        
+        //    mutating func chooseCard(theCard: Card) {
+        //        if cardSelected.count < 3 {
+        //            if let chosenIndex = screenCards.firstIndex(of: theCard) {
+        //                if cardSelected.contains(screenCards[chosenIndex]) {
+        //                    cardSelected.remove(at: chosenIndex)
+        //                } else {
+        //                    cardSelected.append(screenCards[chosenIndex])
+        //                }
+        //            }
+        //            if cardSelected.count == 3 {
+        //                checkIfSet()
+        //            }
+        //        } else if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
+        //            checkIfSet()
+        //            cardSelected.forEach {
+        //                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
+        //                    screenCards.remove(at: selectedCardInGameIndex)
+        //                    if !deck.isEmpty {
+        //                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
+        //                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
+        //                    }
+        //                }
+        //            }
+        //            cardSelected.removeAll()
+        //        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
+        //            cardSelected.removeAll()
+        //        }
+        //    }
+        //    mutating func chooseCard(theCard: Card) {
+        //        if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
+        //            checkIfSet()
+        //            cardSelected.forEach {
+        //                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
+        //                    screenCards.remove(at: selectedCardInGameIndex)
+        //                    if !deck.isEmpty {
+        //                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
+        //                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
+        //                    }
+        //                }
+        //            }
+        //            cardSelected.removeAll()
+        //        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
+        //            cardSelected.removeAll()
+        //        }
+        //        if let cardToSelect = cardSelected.firstIndex(of: theCard) {
+        //            cardSelected.remove(at: cardToSelect)
+        //        } else {
+        //            cardSelected.append(theCard)
+        //        }
+        //    }
+        
+        // swiftlint:disable multiline_function_chains
+        mutating func chooseCard(theCard: Card) {
+            if selectedCards.count < 3 {
+                if let chosenIndex = screenCards.firstIndex(of: theCard) {
+                    screenCards[chosenIndex].isSelected = !screenCards[chosenIndex].isSelected
+                    if selectedCards.count == 3 {
+                        if cardsMakeASet(chosen: selectedCards) {
+                            selectedCards.forEach { card in
+                                if let index = screenCards.firstIndex(of: card) {
+                                    screenCards[index].isMatch = true
+                                }
+                                //                            if let index = screenCards.firstIndex(of: card) {
+                                //                                screenCards.remove(at: index)
+                                //                            }
+                            }
+                        } else {
+                            selectedCards.forEach { card in
+                                if let index = screenCards.firstIndex(of: card) {
+                                    screenCards[index].isMismatched = true
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                if !deck.isEmpty {
+                    replaceMatchedCards()
+                } else {
+                    screenCards.filter { card in
+                        card.isSelected && card.isMatch
+                    } .forEach { _ in
+                        if let index = screenCards.firstIndex(of: theCard) {
+                            screenCards[index].isDiscard = true
+                        }
+                    }
+                }
+                deselectAll()
+                if let chosenIndex = screenCards.firstIndex(of: theCard) {
+                    screenCards[chosenIndex].isSelected = true
+                }
+            }
+        }
+        //            cardSelected.forEach {
+        //                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
+        //                    screenCards.remove(at: selectedCardInGameIndex)
+        //                    if !deck.isEmpty {
+        //                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
+        //                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
+        //                    }
+        //                }
+        //            }
+        
+        mutating func deselectAll() {
+            for card in selectedCards {
+                if let index = screenCards.firstIndex(of: card) {
+                    screenCards[index].isMismatched = false
+                    screenCards[index].isSelected = false
+                }
+            }
+        }
+        
+        mutating func checkIfSet() {
+            if cardsMakeASet(chosen: self.cardSelected) {
+                for card in cardSelected {
+                    if let index = screenCards.firstIndex(of: card) {
+                        screenCards[index].isMatch = true
+                        //                    screenCards.remove(at: index)
+                    }
+                }
+                replaceMatchedCards()
+            } else {
+                for card in cardSelected {
+                    if let index = screenCards.firstIndex(of: card) {
+                        screenCards[index].isMismatched = true
                     }
                 }
             }
-            cardSelected.removeAll()
-        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
-            cardSelected.removeAll()
         }
-        if let cardToSelect = cardSelected.firstIndex(of: theCard) {
-            cardSelected.remove(at: cardToSelect)
-        } else {
-            cardSelected.append(theCard)
+        
+        mutating func shuffleCards() {
+            screenCards.shuffle()
+        }
+    }
+    enum ChooseRand {
+        static func rand(upperBound max: Int) -> Int {
+            Int.random(in: 0..<max)
         }
     }
     
-//    mutating func chooseCard(theCard: Card) { my baby
-//        if cardSelected.count == 3, cardsMakeASet(chosen: cardSelected) {
-//            checkIfSet()
-//            cardSelected.forEach {
-//                if let selectedCardInGameIndex = screenCards.firstIndex(of: $0) {
-//                    screenCards.remove(at: selectedCardInGameIndex)
-//                    if !deck.isEmpty {
-//                        let selectedCard = deck.remove(at: Int.random(in: 0..<deck.count))
-//                        screenCards.insert(selectedCard, at: selectedCardInGameIndex)
-//                    }
-//                }
-//            }
-//            cardSelected.removeAll()
-//        } else if cardSelected.count == 3, !cardsMakeASet(chosen: cardSelected) {
-//            cardSelected.removeAll()
-//        }
-//        if let cardToSelect = cardSelected.firstIndex(of: theCard) {
-//            cardSelected.remove(at: cardToSelect)
-//        } else {
-//            cardSelected.append(theCard)
-//        }
-//    }
-    
-    mutating func deselectAll() {
-        for card in cardSelected {
-            if let index = screenCards.firstIndex(of: card) {
-                screenCards[index].isMismatched = false
+    extension Array {
+        mutating func remove(at indexes: [Int]) {
+            for index in indexes.sorted(by: >) {
+                remove(at: index)
             }
         }
     }
-    
-    mutating func checkIfSet() {
-        if cardsMakeASet(chosen: self.cardSelected) {
-            for card in cardSelected {
-                if let index = screenCards.firstIndex(of: card) {
-                    screenCards[index].isMatch = true
-//                    screenCards.remove(at: index)
-                }
-            }
-//            if remainingCardsInDeck > 0 {
-//                replaceMatchedCards()
-//            }
-        } else {
-            for card in cardSelected {
-                if let index = screenCards.firstIndex(of: card) {
-                    screenCards[index].isMismatched = true
-                }
-            }
-        }
-    }
-    
-    mutating func shuffleCards() {
-        screenCards.shuffle()
-    }
-}
-enum ChooseRand {
-    static func rand(upperBound max: Int) -> Int {
-        Int.random(in: 0..<max)
-    }
-}
-
-extension Array {
-    mutating func remove(at indexes: [Int]) {
-        for index in indexes.sorted(by: >) {
-            remove(at: index)
-        }
-    }
-}
